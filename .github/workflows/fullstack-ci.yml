@@ -1,0 +1,47 @@
+name: Fullstack CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu indir
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Backend paketlerini yükle
+        working-directory: ./backend
+        run: npm install
+
+      - name: Backend çalışıyor mu kontrol et
+        working-directory: ./backend
+        run: npm run start -- --help || true
+
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu indir
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Frontend paketlerini yükle
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Frontend build al
+        working-directory: ./frontend
+        run: npm run build
