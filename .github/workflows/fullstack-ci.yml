@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  backend-build:
+  backend-check:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,9 +22,9 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      - name: Backend çalışıyor mu kontrol et
+      - name: Backend syntax kontrolü
         working-directory: ./backend
-        run: npm run start -- --help || true
+        run: node -c server.js
 
   frontend-build:
     runs-on: ubuntu-latest

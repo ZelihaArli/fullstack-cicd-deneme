@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+const API_URL = import.meta.env.VITE_API_URL
 
 function App() {
   const [messages, setMessages] = useState([])
@@ -10,7 +11,7 @@ function App() {
   }, [])
 
   const fetchMessages = async () => {
-    const response = await fetch('http://localhost:5000/api/messages')
+    const response = await fetch(`${API_URL}/api/messages`)
     const data = await response.json()
     setMessages(data)
   }
@@ -18,7 +19,7 @@ function App() {
   const addMessage = async () => {
     if (!text.trim()) return
 
-    const response = await fetch('http://localhost:5000/api/messages', {
+    const response = await fetch(`${API_URL}/api/messages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
